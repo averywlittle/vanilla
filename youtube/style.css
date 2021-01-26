@@ -3,6 +3,7 @@ body {
     color: #fff;
     margin:0; /*wtf is this auto margin lmao*/
     font-family: arial;
+    overflow:hidden;
 }
 
 .header-container {
@@ -76,7 +77,8 @@ body {
     color: #eee;
     display: flex;
     flex-direction: column;
-    height: 1415px;
+    height: 95vh;
+    overflow-y:scroll;
 }
 
 .sidebar-section {
@@ -92,7 +94,7 @@ body {
 }
 
 .sidebar-section-other {
-    padding: 0 20px;
+    padding: 0 20px 10px;
 }
 
 .sidebar-title {
@@ -176,17 +178,28 @@ body {
     font-size: 12px;
 }
 
+.feed-content {
+    height: 89vh;
+    overflow-y:scroll;
+}
+
 .feed-container {
     margin: 20px 100px;
-    border: 1px solid orange;
+    /* border: 1px solid orange; */
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     row-gap: 40px;
     column-gap: 5px;
+    padding-bottom: 50px;
+    border-bottom: 3px solid #444;
+}
+
+.feed-title {
+    margin-left: 100px;
 }
 
 .feed-item {
     width: 350px;
     height: 300px;
-    border: 1px solid plum;
+    border: 1px solid pink;
 }
