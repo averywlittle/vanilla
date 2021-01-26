@@ -1,0 +1,67 @@
+body {
+    background: #181818;
+    color: #fff;
+    margin:0; /*wtf is this auto margin lmao*/
+}
+
+.header-container {
+    background: #202020;
+    display:flex;
+    min-width: 100vw;
+    min-height: 5vh;
+    align-items: center;
+}
+
+.header-item {
+    flex:1;
+}
+
+.header-menu {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.header-menu-item {
+    padding-right: 1vw;
+}
+
+.header-burger-logo {
+    display:flex;
+    justify-content: flex-start;
+}
+
+.header-burger-logo-item {
+    padding-left: 1vw;
+}
+
+.logo {
+    margin-top: 1vh;
+    padding-left: 1vw;
+}
+
+.search-form {
+    display:flex;
+    align-items: center;
+}
+
+.search-bar {
+    background: #141414;
+    color: #fff;
+    border: 0.1px solid #303030;
+    border-radius: 2px;
+    min-height: 3vh;
+    min-width: 30vw;
+}
+
+.search-bar::-webkit-input-placeholder { padding-left:10px;}
+.search-bar:-moz-placeholder {padding-left:10px;}
+.search-bar::-moz-placeholder {padding-left:10px;}
+.search-bar:-ms-input-placeholder {padding-left:10px;}
+
+.search-btn {
+    background: #323232;
+    border-radius: 0 2px 2px 0;
+    border:none;
+    min-width: 3.2vw;
+    max-height: 3.4vh;
+}
