@@ -7,32 +7,99 @@
 </head>
 <body>
     <div class="wrapper">
-        <button onclick="displayOverlay()">Show offer</button>
-        <div class="barWrapper">
-            <div class="bar"/>
+        <button class="initial-button" onclick="toggleOverlay()">Show offer</button>
+        <div class="bg-modal">
+            <div class="modal-content">
+                <button onclick="toggleOverlay()">X</button>
+                <div class="centered-content">
+                    Click the button below to accept our amazing offer!
+                    <button onclick="acceptOffer()">Accept Offer</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        function displayOverlay() {
-            console.log('howdy')
+        function toggleOverlay() {
+            const overlay = document.querySelector('.bg-modal')
+            console.log(overlay.style.visibility);
+            if (overlay.style.visibility === 'hidden' || !overlay.style.visibility) {
+                overlay.style.visibility = 'visible';
+            } else {
+                overlay.style.visibility = 'hidden';
+            }
+        }
+
+        function acceptOffer() {
+            toggleOverlay();
+
+            const initialButton = document.querySelector('.initial-button');
+
+            const acceptedMessage = document.createElement('div');
+            acceptedMessage.innerHTML = 'Offer accepted!';
+
+            initialButton.parentNode.replaceChild(acceptedMessage, initialButton);
+        }
+
+        const modalBg = document.querySelector('.bg-modal');
+        window.onclick = function(event) {
+            if (event.target == modalBg) {
+                toggleOverlay();
+            }
         }
 
     </script>
 
     <style>
+        body {
+            margin: 0;
+        }
         .wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             width: 100vw;
+        }
+        
+        .bg-modal {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .1);
+            position: absolute;
+            top: 0;
+            visibility: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 300px;
+            height: 300px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .centered-content {
+            margin-top: 12vh;
+            width: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .centered-content button {
+            margin-top: 15vh;
+        }
+
+        * {
             position: fixed;
         }
 
-        button {
-            position: fixed;
-        }
+        /* mobile format modal takes up whole screen */
     </style>
 </body>
 </html>
