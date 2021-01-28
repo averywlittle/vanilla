@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage</title>
+</head>
+<body>
+    <div class="wrapper">
+        <p>Principal loan amount</p>
+        <input class="loan"/>
+        <p>Interest rate (annual)</p>
+        <div><input class="interest"/> % </div>
+        <p>Length of loan</p>
+        <div><input class="years"/> years </div>
+        <button onclick="getMortgage()">Calculate</button>
+        <div class="output"/>
+    </div>
+
+    <script>
+        function getMortgage() {
+            const loan = document.querySelector('.loan').value;
+            const interest = document.querySelector('.interest').value / 100;
+            const years = document.querySelector('.years').value;
+
+            const result = calcFixed(loan, interest, years);           
+
+            const output = document.querySelector('.output');
+            const newOutput = document.createElement('div');
+            newOutput.innerHTML = `<div class="output">Your monthly mortgage payment is $${result}</div>`;
+
+            output.parentNode.replaceChild(newOutput, output);
+        }
+
+        function calcFixed(loan, interest, years) {
+            const totalPayments = years * 12;
+            const monthlyInterest = interest / 12;
+
+            let result =  (monthlyInterest * loan) / (1 - ((1 + (monthlyInterest)) ** (totalPayments * -1)));
+
+            return result.toLocaleString(
+                'en-US',
+                { minimumFractionDigits: 2 }
+                );
+        }
+        
+    </script>
+
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</body>
+</html>
