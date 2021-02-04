@@ -1,8 +1,8 @@
-console.log('BEGIN')
 let loopId = 'first'
 let snek = null
 const apple = '🍎'
 let appleInPlay = false
+let appleLocation = null
 
 function spawnSnek(len, row, col) {
     snek = new Snek(len, row, col, 'up')
@@ -11,7 +11,7 @@ function spawnSnek(len, row, col) {
 
 function gameOver() {
     snek = null
-    stopGameLoop()
+    stopGameLoop(loopId)
     console.log('GAME OVER')
 
     for (let i = 0; i < 15; i++) {
@@ -31,10 +31,37 @@ function makeBoardVisible(location) {
     tile.classList.replace('game-piece', 'game-tile')
 }
 
+function isASnekPiece(location) {
+    const tile = document.querySelector(`.row${location.row}col${location.col}`)
+    if (tile.classList.contains('game-piece')) return true
+    else return false
+}
+
+function insertApple(location) {
+    const tile = document.querySelector(`.row${location.row}col${location.col}`)
+    tile.innerHTML = apple
+}
+
+function deleteApple() {
+    const tile = document.querySelector(`.row${appleLocation.row}col${appleLocation.col}`)
+    tile.innerHTML = ''
+    appleLocation = null
+}
+
 function calcNewLocation(location, dir) {
     let row = location.row
     let col = location.col
     
+    if (row === 0 && dir === 'up') {
+        gameOver()
+    } else if (row === 14 && dir === 'down') {
+        gameOver()
+    } else if (col === 0 && dir === 'left') {
+        gameOver()
+    } else if (col === 14 && dir === 'right') {
+        gameOver()
+    }
+
     switch (dir) {
         case 'up':
             row--
@@ -66,6 +93,7 @@ class Snek {
             row: row,
             col: col
         }
+        this.grow = false
         this.headPiece = null
     }
 
@@ -77,14 +105,15 @@ class Snek {
         firstPiece.next = secondPiece
     }
 
-    grow() {
-        this.moveHead()
-        this.len++
-    }
-
     move() {
-        this.moveHead()
-        this.moveTail()
+        if (this.grow) {
+            this.moveHead()
+            this.grow = false
+            appleInPlay = false
+        } else {
+            this.moveHead()
+            this.moveTail()
+        }
     }
 
     moveHead() {
@@ -95,8 +124,18 @@ class Snek {
         this.headPiece.next = insertPiece
         
         const newLoc = calcNewLocation(this.headPiece.location, this.dir)
+
+        if (isASnekPiece(newLoc)) {
+            gameOver()
+        }
+
         this.headPiece.location = newLoc
         makePieceVisible(newLoc)
+
+        if (appleLocation !== null && newLoc.row === appleLocation.row && newLoc.col === appleLocation.col) {
+            this.grow = true
+            deleteApple()
+        }
 
         console.log('HEAD', this.headPiece)
     }
@@ -113,7 +152,13 @@ class Snek {
     }
 
     turn(newDir) {
-        this.dir = newDir
+        console.log('currentDir', this.dir)
+        console.log('newDir', newDir)
+        if ((this.dir === 'down' || this.dir === 'up') && (newDir === 'left' || newDir === 'right')) {
+            this.dir = newDir
+        } else if ((this.dir === 'left' || this.dir === 'right') && (newDir === 'up' || newDir === 'down')) {
+            this.dir = newDir
+        }
     }
 }
 
@@ -135,7 +180,7 @@ function initGameLoop() {
         () => {
             updateGame()
         },
-        1000 //ms
+        300 //ms
     )
     return intervalId
 }
@@ -157,11 +202,57 @@ function pauseGame() {
     stopGameLoop(loopId)
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+// TODO [ ] get all non snek pieces in a collection then choose randomly from the collection
+function spawnApple() {
+    let row = getRandomInt(0, 14)
+    let col = getRandomInt(0, 14)
+
+    // keep calculating a random position until an unoccupied tile is found
+    while(isASnekPiece({ row, col })) {
+        row = getRandomInt(0, 14)
+        col = getRandomInt(0, 14)
+    }
+
+    console.log(`Apple added to row: ${row}, col: ${col}`)
+
+    // add apple to location
+    insertApple({ row, col })
+    appleLocation = { row, col }
+    appleInPlay = true
+}
+
 function updateGame() {
     // spawn apple
-    
-    // turn snek
+    if (!appleInPlay) {
+        const num = getRandomInt(0, 10)
+        if (num > 4) {
+            spawnApple()
+        }
+    }
 
     // move snek
     snek.move()
 }
+
+document.addEventListener("keydown", event => {
+
+    if (event.code === 'ArrowLeft') {
+        // left
+        snek.turn('left')
+    } else if (event.code === 'ArrowUp') {
+        // up
+        snek.turn('up')
+    } else if (event.code === 'ArrowRight') {
+        // right
+        snek.turn('right')
+    } else if (event.code === 'ArrowDown') {
+        // down
+        snek.turn('down')
+    }
+})

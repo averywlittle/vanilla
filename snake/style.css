@@ -8,7 +8,7 @@ body {
 }
 
 .game-box {
-    /* background-color: lightgreen; */
+    margin: 5px;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -22,8 +22,6 @@ body {
     background-color: lightgreen;
     width: 30px;
     height: 30px;
-    border-right: 1px dotted gray;
-    border-bottom: 1px dotted gray;
 }
 
 .game-piece {
