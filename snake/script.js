@@ -180,7 +180,7 @@ function initGameLoop() {
         () => {
             updateGame()
         },
-        300 //ms
+        100 //ms
     )
     return intervalId
 }
