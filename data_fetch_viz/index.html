@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data viz</title>
+</head>
+<body>
+    <h3>Random number data visualization</h3>
+
+    <div class="histogram">
+
+    </div>
+    <div class="labels">
+
+    </div>
+
+    <p>
+        Fetching a list of random numbers and plotting the data on the above histogram. Data is from <a href="https://www.random.org/integers/?num=200&min=1&max=10&col=1&base=10&format=plain&rnd=new" target="_blank">this endpoint</a>.
+    </p>
+
+    <script src="./script.js"></script>
+    <style>
+        .bar {
+            background-color: #01FF70;
+            width: 75px;
+            margin: 0 0 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .labels {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 650px;
+        }
+
+        .histogram {
+            display: flex;
+            align-items: flex-end;
+            margin-left: 20px;
+            padding-right: 10px;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            height: 400px;
+            width: 600px;
+        }
+    </style>
+</body>
+</html>
