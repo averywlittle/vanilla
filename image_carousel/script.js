@@ -7,14 +7,17 @@ function next() {
     let currentImageContainer = document.querySelector(".imgContainer")
     currentImageContainer.remove()
     clearInterval(intervalId)
-    displayCarousel(ctr + 1)
+    if (ctr === linkCollection.length -1) displayCarousel(0)
+    else displayCarousel(ctr + 1)
 }
 
 function previous() {
     let currentImageContainer = document.querySelector(".imgContainer")
     currentImageContainer.remove()
     clearInterval(intervalId)
-    displayCarousel(ctr - 1)
+    if (ctr === 0) displayCarousel(linkCollection.length -1)
+    else displayCarousel(ctr - 1)
+    
 }
 
 function counterLoop() {
@@ -24,22 +27,20 @@ function counterLoop() {
 
 function displayCarousel(counter) {
 
-    if (counter) {
+    if (counter >= 0) {
         ctr = counter
     }
     const div = document.querySelector(".carousel")
 
     let initialImage = displayImage()
     div.append(initialImage)
-    counterLoop()
 
     intervalId = setInterval(function() {
+        counterLoop()
         let prevImageContainer = document.querySelector(".imgContainer")
         let imageContainer = displayImage()
 
         div.replaceChild(imageContainer, prevImageContainer)
-        
-        counterLoop()
     }, 5000)
 
     function displayImage() {
