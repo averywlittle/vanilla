@@ -25,6 +25,7 @@ function generateHistogram() {
     }
 }
 
+// calculate the frequency of each unique number in the array
 function formatData() {
     console.log('arr', arr)
 

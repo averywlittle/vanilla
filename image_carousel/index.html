@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel</title>
+</head>
+<body>
+    <div class="container">
+        <div class="button-container">
+            <a onclick="previous()" class="left-triangle">&#9650;</a>
+
+            <h3>Gallery</h3>
+
+            <a onclick="next()" class="right-triangle">&#9650;</a>
+        </div>
+        <div class="carousel">
+
+        </div>
+    </div>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .display {
+            max-width: 45vw;
+            max-height: 80vh;
+        }
+
+        .carousel {
+            min-width: 300px;
+        }
+
+        .right-triangle {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+            font-size: 50px;
+            transform: rotate(90deg);
+        }
+
+        .right-triangle:hover {
+            cursor: pointer;
+        }
+
+        .left-triangle {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+            font-size: 50px;
+            transform: rotate(270deg);
+        }
+
+        .left-triangle:hover {
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            min-width: 30vw;
+            margin-bottom: 5px;
+        }
+    </style>
+
+    <script src="./script.js"></script>
+</body>
+</html>
